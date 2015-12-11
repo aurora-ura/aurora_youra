@@ -1,0 +1,82 @@
+<html>
+<head> 
+<style type="text/css">
+a { text-decoration:none }
+canvas {border: #000 0px solid;}
+</style> 
+<title>YOURALEE</title>
+<script src="processing.js"></script>
+<head>
+
+</head>
+<body bgcolor="#FFFFFF">
+<center><script type="text/processing" data-processing-target="mycanvas">
+Tentacle[] tentacles;
+ 
+void setup() {
+  size(2400, 1000);
+noFill();
+ 
+  tentacles = new Tentacle[150];
+ 
+  for (int i = 0; i < tentacles.length; i++) {
+    tentacles[i] = new Tentacle();
+  }
+}
+ 
+ 
+void draw() {
+  background(#FFFFFF);
+ noStroke ();
+ fill (mouseX-1200, mouseY-500, 325, 70);  
+ 
+  for (Tentacle tentacle: tentacles) {
+    tentacle.paint();
+  }
+}
+ 
+
+class Tentacle {
+  
+  float phi;
+  int numPoints;
+  PVector position;
+  float frequency;
+  float amplitude;
+
+  Tentacle() {
+    phi = random(TWO_PI);
+    frequency =random(10, 70);
+    amplitude = random(.1, 1);
+    numPoints = (int)random(10, 300);
+    position = new PVector(random(0, width), 0);
+  }
+ 
+ 
+  void paint() {
+ 
+    pushMatrix();
+    translate(position.x, position.y);
+ 
+    float x, y;
+    // the segments of the tentacle
+    for (int i = -10; i < numPoints; i++) {
+      y = 4*i;
+      x = sin(y/frequency + phi)*i*amplitude;
+ 
+      float diameter = map(i, 0, numPoints, 7, 0.01);
+      ellipse(x, y, diameter, diameter); 
+ 
+}
+
+    phi -= .05;
+    popMatrix();
+  }
+}
+</script>
+<canvas id="mycanvas"></canvas>
+</center>
+<center><a href ="hp.html"> <font face="verdana" size="10" color="#6C6C6C"><br> ENTER</h></A></center></br>
+</body>
+
+</html>
